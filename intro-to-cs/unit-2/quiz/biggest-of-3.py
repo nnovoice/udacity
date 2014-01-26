@@ -8,7 +8,7 @@ def bigger(a, b):
     return b
 
 def biggest(a, b, c):
-    return bigger(bigger(a,b), bigger(b,c))
+    return bigger(bigger(a,b), c))
             
 
 
