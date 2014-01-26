@@ -5,9 +5,10 @@
 
 def factorial(n):
     fact = 1
-    while (n != 1):
-        fact = fact * n
-        n = n - 1
+    i = 1
+    while (i <= n):
+        fact = fact * i
+        i = i + 1
     return fact
 
 
@@ -18,3 +19,4 @@ print factorial(5)
 #>>> 120
 print factorial(6)
 #>>> 720
+print factorial(15)
