@@ -2,17 +2,13 @@
 # numbers as inputs and returns the largest of
 # those three numbers.
 
+def bigger(a, b):
+    if (a >= b):
+        return a
+    return b
+
 def biggest(a, b, c):
-    if (a > b):
-        if (a > c):
-            return a
-        else:
-            return c
-    else:
-        if (b > c):
-            return b
-        else:
-            return c
+    return bigger(bigger(a,b), bigger(b,c))
             
 
 
