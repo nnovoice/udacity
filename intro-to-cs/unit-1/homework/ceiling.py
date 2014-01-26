@@ -60,6 +60,7 @@ last_digit_end_pos = sig_digit_pos/5 - 2;
 
 ceiling = ceiling + last_digits_xy[last_digit_end_pos]
 print ceiling
+#has error for x = 9.89327
 
 
 
