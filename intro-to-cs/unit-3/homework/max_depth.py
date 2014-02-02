@@ -109,53 +109,73 @@ def get_all_links(page):
 
 def get_depth(depth_list, url):
     depth = 0
-    print depth_list
+    #print depth_list
     for page, page_depth in depth_list:
         if (page == url):
             depth = page_depth
             break
     return depth
 
+def update_depth(depth_list, url, depth):
+    found = False
+    for e in depth_list:
+        if (e[0] == url):
+            e[1] = depth
+            found = True
+            break
+    if (found == False):
+        depth_list.append([url, depth])
+
 def crawl_web(seed,max_depth):
     tocrawl = [seed]
     crawled = []
     depth_list = []
-    depth = 0
     while tocrawl:
         page = tocrawl.pop()
-        if page not in crawled:
-            #print "depth list= ", depth_list
-            page_depth = get_depth(depth_list, page)
-            #print "page= ", page, " page_depth= ", page_depth
+        page_depth = get_depth(depth_list, page)
+        links = get_all_links(get_page(page))
+        for link in links:
+            link_depth = get_depth(depth_list, link)
+            new_depth = (page_depth + 1)
+            if (link_depth > new_depth):
+                update_depth(depth_list, link, new_depth)
+                if (page in crawled):
+                    if (link not in crawled):
+                        tocrawl.append(link)
             
+        if page not in crawled:
+            #print "page= ", page, " page_depth= ", page_depth
+            #page_depth = get_depth(depth_list, page)
             if (page_depth <= max_depth):
-				crawled.append(page)
-                depth_list.append([page, page_depth])
-                links = get_all_links(get_page(page))
+                crawled.append(page)
+                update_depth(depth_list, page, page_depth)
+                
+                #print "links= ", links
                 for link in links:
-                    depth_list.append([link, page_depth + 1])
+                    update_depth(depth_list, link, (page_depth + 1))
                     union(tocrawl, links)
-                    crawled.append(page)
-            depth = page_depth + 1
+                    #print "to crawl= ", tocrawl
+        #print "crawled= ", crawled
+
     return crawled
 
 print crawl_web("http://www.udacity.com/cs101x/index.html",0)
 #>>> ['http://www.udacity.com/cs101x/index.html']
 
-#print crawl_web("http://www.udacity.com/cs101x/index.html",1)
+print crawl_web("http://www.udacity.com/cs101x/index.html",1)
 #>>> ['http://www.udacity.com/cs101x/index.html',
 #>>> 'http://www.udacity.com/cs101x/flying.html',
 #>>> 'http://www.udacity.com/cs101x/walking.html',
 #>>> 'http://www.udacity.com/cs101x/crawling.html']
 
-#print crawl_web("http://www.udacity.com/cs101x/index.html",50)
+print crawl_web("http://www.udacity.com/cs101x/index.html",50)
 #>>> ['http://www.udacity.com/cs101x/index.html',
 #>>> 'http://www.udacity.com/cs101x/flying.html',
 #>>> 'http://www.udacity.com/cs101x/walking.html',
 #>>> 'http://www.udacity.com/cs101x/crawling.html',
 #>>> 'http://www.udacity.com/cs101x/kicking.html']
 
-#print crawl_web("http://top.contributors/forbiddenvoid.html",2)
+print crawl_web("http://top.contributors/forbiddenvoid.html",2)
 #>>> ['http://top.contributors/forbiddenvoid.html',
 #>>> 'http://top.contributors/graemeblake.html',
 #>>> 'http://top.contributors/angel.html',
@@ -163,7 +183,7 @@ print crawl_web("http://www.udacity.com/cs101x/index.html",0)
 #>>> 'http://top.contributors/johang.html',
 #>>> 'http://top.contributors/charlzz.html']
 
-#print crawl_web("A1",3)
+print crawl_web("A1",3)
 #>>> ['A1', 'C1', 'B1', 'E1', 'D1', 'F1']
 # (May be in any order)
 
