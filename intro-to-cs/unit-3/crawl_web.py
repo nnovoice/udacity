@@ -20,19 +20,23 @@ def get_page(url):
 	response = urllib2.urlopen(url)
 	page_source = response.read()
 	return page_source
+
+def union(p, q):
+	for e in q:
+		if e not in p:
+			p.append(e)
 	
 def crawl_web(seed):
 	to_crawl = [seed]
 	crawled = []
-	while (len(to_crawl) != 0):
+	while to_crawl:
 		url = to_crawl.pop()
 		print "Got uncrawled url= ", url
 		if url not in crawled:
 			crawled.append(url)
 			url_page = get_page(url)
 			links = get_all_links(url_page)
-			for link in links:
-				to_crawl.append(link)
+			union(to_crawl, links)
 			print to_crawl
 	return crawled
 
