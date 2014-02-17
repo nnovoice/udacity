@@ -7,11 +7,13 @@ def get_pages_that_link_to_url(graph, url):
         #print page, " links = ", links
         for link in links:
             if (link == url):
-                result.append(link)
+                result.append(page)
+                break
     return result
         
 
 def compute_ranks(graph):
+    print graph
     d = 0.8 # damping factor
     numloops = 10
     
@@ -28,11 +30,13 @@ def compute_ranks(graph):
             
             #Insert Code Here
             in_links = get_pages_that_link_to_url(graph, page)
-            #print page, ": ", in_links
+
             temp = 0.0
             for in_link in in_links:
-                if (len(graph[in_link]) > 0):
-                    temp = temp + (ranks[in_link] / len(graph[in_link]))
+                nlinks = len(graph[in_link])
+                print "page: ", page, ": ", " #in_links= ", nlinks
+                if ( nlinks > 0):
+                    temp = temp + ((ranks[in_link] * 1.0) / nlinks)
                     
             newrank = newrank + d * temp
             newranks[page] = newrank
