@@ -19,11 +19,15 @@
 # For credit, your procedure must not use: while, for, or import math. 
 
 def hexes_to_udaciousness(n, spread, target):
-    if (n * spread >= target):
+    if n >= target:
         return 0
+    if (n * spread >= target):
+        #print n*spread, ":", spread, ":", target
+        return 1
     else:
-        print n*spread, ":", spread, ":", target
-        return hexes_to_udaciousness(n*spread, spread, target) + 1
+        total = n + n * spread
+        #print n*spread, ":", spread, ":", target
+        return hexes_to_udaciousness(total, spread, target) + 1
 
 
 
