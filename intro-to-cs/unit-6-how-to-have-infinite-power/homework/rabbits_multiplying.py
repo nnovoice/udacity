@@ -46,25 +46,25 @@ def gen_fib(n):
         fib2 = temp + fib2
         fib1 = temp
         rabbits_without_death[i] = fib2
-        print str(i), ":", rabbits_without_death[i]
+        #print str(i), ":", rabbits_without_death[i]
     
     
-def update_rabbits_after_death():
+def update_rabbits_after_death(n):
     for i in range(0,6):
         rabbits_after_death[i] = rabbits_without_death[i]
-    n = len(rabbits_without_death)
-    for i in range(6, n):
-        rabbits_after_death[i] = rabbits_after_death[i - 1] + rabbits_after_death[i - 2] - rabbits_without_death[i - 5]
+    
+    for i in range(6, n + 1):
+        #print rabbits_after_death[i - 1], ":", rabbits_after_death[i - 2], ":", rabbits_after_death[i - 5]
+        rabbits_after_death[i] = rabbits_after_death[i - 1] + rabbits_after_death[i - 2] - rabbits_after_death[i - 5]
     return 
         
 
 def rabbits(n):
+    if (n >= len(rabbits_after_death)):
+        gen_fib(n)
+        update_rabbits_after_death(n)
+        
     return rabbits_after_death[n]
-
-
-gen_fib(36)
-update_rabbits_after_death()
-print rabbits(5)
 
 print rabbits(10)
 #>>> 35
