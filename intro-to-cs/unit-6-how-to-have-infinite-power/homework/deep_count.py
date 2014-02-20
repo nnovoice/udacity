@@ -20,23 +20,15 @@ def is_list(p):
 
 def deep_count(p):
     count = 0
-    if (is_list(p) == True):
-        if (len(p) == 0):
-            count += 1
-        else:
-            for e in p:
-                if (is_list(e) == True):
-                    count += deep_count(e)
-                else:
-                    count += 1
+    for e in p:
+        count += 1
+        if (is_list(e) == True):
+            count += deep_count(e)
         
     return count
-            
-
-
 
 print deep_count([])
-#>>> 1
+#>>> 0
 
 print deep_count([1, 2, 3])
 #>>> 3
