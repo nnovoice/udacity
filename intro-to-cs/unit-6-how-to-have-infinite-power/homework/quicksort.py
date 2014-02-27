@@ -5,7 +5,7 @@ def partition(l):
     print "partition called on ", l, " with len= ", len(l)
     count = len(l)
     pivot = l[0]
-    left = 0
+    left = 1
     right = count - 1
     print "ENTRY: left= ", left, " leftVal= ", l[left], " right= ", right, " rightVal= ", l[right]
     while (left < right):
@@ -26,16 +26,15 @@ def partition(l):
         print l
         return left
 
-    return -1
+    return 1
 
 def quicksort(l):
     if len(l) <= 1:
         return
     
     new_pivot_index = partition(l)
-    if (new_pivot_index > 0):
-        quicksort(l[0:new_pivot_index])
-        quicksort(l[new_pivot_index:])
+    quicksort(l[0:new_pivot_index])
+    quicksort(l[new_pivot_index:])
 
 print arr
 quicksort(arr)
