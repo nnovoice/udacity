@@ -40,17 +40,17 @@
 # 4 STARS: 0 < lines <= 3
 
 def print_abacus(value):
-    value_str = str(value)
+    value_str = "{header}{val}".format(
+        header = '0' * (10 - len(str(value))),
+        val = str(value))
+    
     row = '0' * 5 + '*' * 5
-    for i in range (0, 10 - len(value_str)):
-        print "{header}{row_data}{footer}".format(header='|',row_data=row, footer='   |')
-        
     for i in range(0,len(value_str)):
         digit = int(value_str[i])
         print "{header}{row_left}{row_mid}{row_right}{row_filler}{footer}".format(
             header = '|',
             row_left = row[0:len(row) - digit],
-            row_mid = '   ' if digit > 0 else '',
+            row_mid = ' ' * 3 if digit > 0 else '',
             row_right = row[len(row) - digit:],
             row_filler = ' ' * 3 if digit == 0 else '',
             footer = '|')
