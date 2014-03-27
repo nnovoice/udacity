@@ -40,26 +40,21 @@
 # 4 STARS: 0 < lines <= 3
 
 def print_abacus(value):
-    abacus_frame = []
+    value_str = str(value)
     row = '0' * 5 + '*' * 5
-    for i in range(0,10):
-        line = ''
-        digit = value % 10
-        value /= 10
-
-        for j in range(0, len(row) - digit):
-            line += row[j]
-        if digit > 0:
-            line += (' ' * 3)
-        for j in range(len(row) - digit, len(row)):
-            line += row[j]
-        if digit == 0:
-            line += (' ' * 3)
-            
-        abacus_frame.append(line)
+    for i in range (0, 10 - len(value_str)):
+        print "{header}{row_data}{footer}".format(header='|',row_data=row, footer='   |')
         
-    for i in range(0, len(abacus_frame)):
-        print '|' + abacus_frame[len(abacus_frame) - 1 - i] + '|'
+    for i in range(0,len(value_str)):
+        digit = int(value_str[i])
+        print "{header}{row_left}{row_mid}{row_right}{row_filler}{footer}".format(
+            header = '|',
+            row_left = row[0:len(row) - digit],
+            row_mid = '   ' if digit > 0 else '',
+            row_right = row[len(row) - digit:],
+            row_filler = ' ' * 3 if digit == 0 else '',
+            footer = '|')
+
 
 ###  TEST CASES
 print "Abacus showing 0:"
