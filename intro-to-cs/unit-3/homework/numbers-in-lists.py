@@ -10,12 +10,6 @@
 
 #Hint - "int()" turns a string's element into a number
 def numbers_in_lists(string):
-    # YOUR CODE
-    # outer list and its first number
-    # inner list and its first number
-    # if current number is greater than outer list's first #, then append to outer list
-    # else if current number is > inner list's first number, create a new list, append to the outer list, update the inner list first number
-    # else append to the inner list
     outer_list = []
     outer_list_max_digit = 0
     inner_list = []
