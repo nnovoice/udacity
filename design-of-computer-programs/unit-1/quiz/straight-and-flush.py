@@ -8,25 +8,18 @@
 def straight(ranks):
     "Return True if the ordered ranks form a 5-card straight."
     ranks.sort(reverse=True)
-    lastRank = ranks[0]
-    ranks = ranks[1:]
-    for rank in ranks:
-        if ((lastRank - rank) != 1):
+    for i in range(len(ranks) - 1):
+        if ((ranks[i] - ranks[i + 1]) != 1):
             return False
-        lastRank = rank
     return True
-    # Your code here.
 
 def flush(hand):
     "Return True if all the cards have the same suit."
     suits = [s for r,s in hand]
-    lastSuit = suits[0]
-    suits = suits[1:]
-    for suit in suits:
-        if (lastSuit != suit):
-            return False
-    return True
-    # Your code here.
+    suites_set = set(suits)
+    if (len(suites_set) == 1):
+        return True
+    return False
     
 def test():
     "Test cases for the functions in poker program."
